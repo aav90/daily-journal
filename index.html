@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily Journal — Learniamo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #cfe2f3;
+    color: black;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h1 {
+    text-align: center;
+  }
+  .buttons {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  button {
+    background-color: #cfe2f3;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    margin: 0 6px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #b0d1e8;
+  }
+  #story {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Daily Journal — Learniamo</h1>
+
+<div class="buttons">
+  <button onclick="showStory('it')">Italiano</button>
+  <button onclick="showStory('en')">English</button>
+  <button onclick="showStory('fa')">فارسی</button>
+  <button onclick="showStory('de')">Deutsch</button>
+</div>
+
+<div id="story"></div>
+
+<script>
+const stories = {
+  it: `"Alfabeto Farfallino"
+
+L’italiano ha un registro (in via di estinzione) chiamato “Alfabeto Farfallino”, un linguaggio segreto per bambini.
+Ecco come funziona:
+
+Come funziona:
+Dopo ogni vocale di una parola si inserisce la sillaba “-ib-”.
+
+Esempi:
+
+“Ciao” diventa “Cibiao”
+
+“Casa” diventa “Cibasa”
+
+“Come stai?” diventa “Cibome stibai?”
+
+Perché è interessante:
+
+È un modo giocoso per i bambini di comunicare in privato.
+
+Mostra la flessibilità e l’adattabilità della lingua italiana.
+
+Anche se il suo uso sta diminuendo a causa della comunicazione digitale e di altri interessi dei bambini moderni, rimane un pezzo di patrimonio linguistico italiano.
+
+In Italia esistono molte varianti di questo linguaggio in codice, e questa è solo una di esse.
+
+Curiosità: Molte lingue del mondo utilizzano questa tecnica, con vocali o sillabe diverse.
+`,
+
+  en: `"Alfabeto Farfallino"
+
+Italian has a (dying) register of language called "Alfabeto Farfallino", a secret code language for children.
+Here's how it works:
+
+How it works:
+After every vowel in a word, the syllable "-ib-" is inserted.
+
+Examples:
+
+"Ciao" becomes "Cibiao"
+
+"Casa" becomes "Cibasa"
+
+"Come stai?" becomes "Cibome stibai?"
+
+Why it's interesting:
+
+It's a playful way for kids to communicate privately.
+
+It shows the flexibility and adaptability of the Italian language.
+
+Although its use is declining due to digital communication and other interests of modern children, it remains a piece of Italian linguistic heritage.
+
+There are many variations of this code language in Italy, and this is just one of them.
+
+Fun fact: Many languages worldwide use this technique with different vowels or syllables.
+`,
+
+  fa: `"الفبای پروانه‌ای"
+
+زبان ایتالیایی یک زبان مخفی و بازیگوش برای کودکان دارد به نام "الفبای پروانه‌ای".
+طرز کارش این است:
+
+چطور کار می‌کند:
+بعد از هر حرف صدادار در یک کلمه، سیلاب "-یب-" اضافه می‌شود.
+
+مثال‌ها:
+
+"Ciao" می‌شود "Cibiao"
+
+"Casa" می‌شود "Cibasa"
+
+"Come stai?" می‌شود "Cibome stibai?"
+
+چرا جالب است:
+
+این یک روش بازیگوشانه است برای بچه‌ها تا خصوصی با هم حرف بزنند.
+
+این نشان‌دهنده انعطاف‌پذیری و سازگاری زبان ایتالیایی است.
+
+اگرچه استفاده از آن به خاطر ارتباطات دیجیتال و سرگرمی‌های دیگر کودکان امروزی کاهش یافته، اما هنوز بخش مهمی از میراث زبانی ایتالیا است.
+
+در ایتالیا انواع مختلفی از این زبان رمز وجود دارد و این فقط یکی از آن‌هاست.
+
+نکته جالب: بسیاری از زبان‌های دنیا از این روش با سیلاب‌ها یا حروف صدادار متفاوت استفاده می‌کنند.
+`,
+
+  de: `"Alfabeto Farfallino"
+
+Italienisch hat ein (vom Aussterben bedrohtes) Sprachregister namens "Alfabeto Farfallino", eine geheime Kindersprache.
+So funktioniert es:
+
+Wie es funktioniert:
+Nach jedem Vokal in einem Wort wird die Silbe "-ib-" eingefügt.
+
+Beispiele:
+
+"Ciao" wird zu "Cibiao"
+
+"Casa" wird zu "Cibasa"
+
+"Come stai?" wird zu "Cibome stibai?"
+
+Warum es interessant ist:
+
+Es ist eine spielerische Art, wie Kinder privat kommunizieren.
+
+Es zeigt die Flexibilität und Anpassungsfähigkeit der italienischen Sprache.
+
+Obwohl seine Verwendung aufgrund der digitalen Kommunikation und anderer Interessen moderner Kinder abnimmt, bleibt es ein Teil des italienischen sprachlichen Erbes.
+
+Es gibt viele Varianten dieser Codesprache in Italien, und dies ist nur eine davon.
+
+Fun Fact: Viele Sprachen weltweit verwenden diese Technik mit verschiedenen Vokalen oder Silben.
+`
+};
+
+function showStory(lang) {
+  document.getElementById('story').textContent = stories[lang];
+}
+
+// پیش‌فرض: ایتالیایی
+showStory('it');
+</script>
+
+</body>
+</html>
