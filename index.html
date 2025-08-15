@@ -20,6 +20,9 @@
     text-align: center;
     margin-bottom: 20px;
   }
+  .button-group { /* New class for grouping buttons */
+    margin-bottom: 10px; /* Space between groups */
+  }
   button {
     background-color: #cfe2f3;
     border: none;
@@ -47,17 +50,26 @@
 <h1>Daily Journal — Learniamo</h1>
 
 <div class="buttons">
-  <button onclick="showStory('it')">Italiano</button>
-  <button onclick="showStory('en')">English</button>
-  <button onclick="showStory('fa')">فارسی</button>
-  <button onclick="showStory('de')">Deutsch</button>
+  <div class="button-group">
+    <button onclick="showStory('entry1_it')">Entry 1 - Italiano</button>
+    <button onclick="showStory('entry1_en')">Entry 1 - English</button>
+    <button onclick="showStory('entry1_fa')">Entry 1 - فارسی</button>
+    <button onclick="showStory('entry1_de')">Entry 1 - Deutsch</button>
+  </div>
+  <div class="button-group">
+    <button onclick="showStory('entry2_it')">Entry 2 - Italiano</button>
+    <button onclick="showStory('entry2_en')">Entry 2 - English</button>
+    <button onclick="showStory('entry2_de')">Entry 2 - Deutsch</button>
+    <button onclick="showStory('entry2_fa')">Entry 2 - فارسی</button>
+  </div>
 </div>
 
 <div id="story"></div>
 
 <script>
 const stories = {
-  it: `"Alfabeto Farfallino"
+  // First Journal Entry: "Alfabeto Farfallino"
+  entry1_it: `"Alfabeto Farfallino"
 
 L’italiano ha un registro (in via di estinzione) chiamato “Alfabeto Farfallino”, un linguaggio segreto per bambini.
 Ecco come funziona:
@@ -86,7 +98,7 @@ In Italia esistono molte varianti di questo linguaggio in codice, e questa è so
 Curiosità: Molte lingue del mondo utilizzano questa tecnica, con vocali o sillabe diverse.
 `,
 
-  en: `"Alfabeto Farfallino"
+  entry1_en: `"Alfabeto Farfallino"
 
 Italian has a (dying) register of language called "Alfabeto Farfallino", a secret code language for children.
 Here's how it works:
@@ -115,7 +127,7 @@ There are many variations of this code language in Italy, and this is just one o
 Fun fact: Many languages worldwide use this technique with different vowels or syllables.
 `,
 
-  fa: `"الفبای پروانه‌ای"
+  entry1_fa: `"الفبای پروانه‌ای"
 
 زبان ایتالیایی یک زبان مخفی و بازیگوش برای کودکان دارد به نام "الفبای پروانه‌ای".
 طرز کارش این است:
@@ -144,7 +156,7 @@ Fun fact: Many languages worldwide use this technique with different vowels or s
 نکته جالب: بسیاری از زبان‌های دنیا از این روش با سیلاب‌ها یا حروف صدادار متفاوت استفاده می‌کنند.
 `,
 
-  de: `"Alfabeto Farfallino"
+  entry1_de: `"Alfabeto Farfallino"
 
 Italienisch hat ein (vom Aussterben bedrohtes) Sprachregister namens "Alfabeto Farfallino", eine geheime Kindersprache.
 So funktioniert es:
@@ -171,15 +183,36 @@ Obwohl seine Verwendung aufgrund der digitalen Kommunikation und anderer Interes
 Es gibt viele Varianten dieser Codesprache in Italien, und dies ist nur eine davon.
 
 Fun Fact: Viele Sprachen weltweit verwenden diese Technik mit verschiedenen Vokalen oder Silben.
+`,
+
+  // Second Journal Entry: "Nonna Rosa"
+  entry2_it: `🇮🇹 Italiano
+
+In un piccolo villaggio in Toscana viveva una nonna di nome Rosa, famosa per la sua pasta fatta in casa. Ma Rosa non era solo una cuoca: era anche la “maestra segreta” di italiano per i turisti curiosi. Raccontava loro che in Italia esistono più di 30 dialetti diversi e che la parola “ciao” in realtà deriva dal veneziano “s-ciào”, che significa “sono il tuo servo”. Un giorno arrivò un ragazzo tedesco che voleva imparare l’italiano per capire le canzoni di Andrea Bocelli. Rosa gli spiegò che l’italiano standard deriva soprattutto dal toscano, grazie a scrittori come Dante, Petrarca e Boccaccio. Alla fine della sua vacanza, il ragazzo non solo parlava un po’ di italiano, ma conosceva anche la differenza tra “gnocchi” e “gnocca” — e rideva ogni volta che lo raccontava.
+`,
+
+  entry2_en: `🇬🇧 English
+
+In a small village in Tuscany lived a grandmother named Rosa, famous for her homemade pasta. But Rosa wasn’t just a cook: she was also the “secret teacher” of Italian for curious tourists. She would tell them that in Italy there are more than 30 different dialects, and that the word “ciao” actually comes from the Venetian “s-ciào,” meaning “I am your servant.” One day, a German boy arrived wanting to learn Italian to understand Andrea Bocelli’s songs. Rosa explained that standard Italian comes mainly from Tuscan, thanks to writers like Dante, Petrarch, and Boccaccio. By the end of his vacation, the boy not only spoke some Italian but also knew the difference between “gnocchi” and “gnocca” — and laughed every time he told the story.
+`,
+
+  entry2_de: `🇩🇪 Deutsch
+
+In einem kleinen Dorf in der Toskana lebte eine Großmutter namens Rosa, berühmt für ihre hausgemachte Pasta. Aber Rosa war nicht nur eine Köchin: Sie war auch die „geheime Lehrerin“ für neugierige Touristen. Sie erzählte ihnen, dass es in Italien mehr als 30 verschiedene Dialekte gibt und dass das Wort „ciao“ eigentlich aus dem Venezianischen „s-ciào“ stammt, was „Ich bin dein Diener“ bedeutet. Eines Tages kam ein deutscher Junge, der Italienisch lernen wollte, um die Lieder von Andrea Bocelli zu verstehen. Rosa erklärte ihm, dass das Standarditalienisch hauptsächlich aus dem Toskanischen stammt, dank Schriftstellern wie Dante, Petrarca und Boccaccio. Am Ende seines Urlaubs sprach der Junge nicht nur ein bisschen Italienisch, sondern kannte auch den Unterschied zwischen „Gnocchi“ und „Gnocca“ — und lachte jedes Mal, wenn er die Geschichte erzählte.
+`,
+
+  entry2_fa: `🇮🇷 فارسی
+
+در یک روستای کوچک در توسکانی، مادربزرگی به نام روزا زندگی می‌کرد که به خاطر پاستای خانگی‌اش مشهور بود. اما روزا فقط یک آشپز نبود؛ او «معلم مخفی» زبان ایتالیایی برای گردشگران کنجکاو هم بود. او برایشان تعریف می‌کرد که در ایتالیا بیش از ۳۰ گویش مختلف وجود دارد و کلمه‌ی «چائو» در واقع از واژه‌ی ونیزی «s-ciào» می‌آید که به معنی «من خدمتگزار تو هستم» است. یک روز پسر آلمانی‌ای آمد که می‌خواست ایتالیایی یاد بگیرد تا بتواند ترانه‌های آندره‌آ بوچلی را بفهمد. روزا برایش توضیح داد که ایتالیایی معیار بیشتر از زبان توسکانی گرفته شده، به لطف نویسندگانی چون دانته، پترارکا و بوکاچو. در پایان تعطیلات، آن پسر نه تنها کمی ایتالیایی صحبت می‌کرد، بلکه فرق بین «گنوکی» و «گنوکا» را هم فهمیده بود — و هر بار که این ماجرا را تعریف می‌کرد با خنده همراه بود.
 `
 };
 
-function showStory(lang) {
-  document.getElementById('story').textContent = stories[lang];
+function showStory(key) {
+  document.getElementById('story').textContent = stories[key];
 }
 
-// پیش‌فرض: ایتالیایی
-showStory('it');
+// Default: Show the first Italian entry from Entry 1 when the page loads
+showStory('entry1_it');
 </script>
 
 </body>
