@@ -5,38 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Daily Journal — Learniamo</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #cfe2f3;
-    color: black;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-  }
+  body { font-family: Arial, sans-serif; background-color: #cfe2f3; color: black; padding: 20px; max-width: 900px; margin: auto; }
   h1 { text-align: center; }
   .controls { text-align: center; margin-bottom: 20px; }
-  button, select {
-    background-color: #cfe2f3;
-    border: none;
-    color: black;
-    padding: 10px 20px;
-    margin: 6px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+  button, select { background-color: #cfe2f3; border: none; color: black; padding: 10px 20px; margin: 6px; font-size: 16px; border-radius: 6px; cursor: pointer; }
   button:hover, select:hover { background-color: #b0d1e8; }
-  #story {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    white-space: pre-wrap;
-    line-height: 1.5;
-  }
-  #title {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+  #story { background: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.5; }
+  #title { font-weight: bold; margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -51,8 +26,7 @@
     <button onclick="setLanguage('fa')">فارسی</button>
     <button onclick="setLanguage('de')">Deutsch</button>
   </div>
-
-  <!-- Story Selector (auto-filled; newest first) -->
+  <!-- Story Selector -->
   <div>
     <select id="storySelect" onchange="updateStory()"></select>
   </div>
@@ -64,18 +38,14 @@
 <script>
 let currentLang = 'it'; // default language
 
-// === STORIES ===
-// Keep older stories first in this array (1, 2, ...); add new ones at the END.
-// The dropdown will always show them in reverse order (newest first).
 const stories = [
+  // Story 1: Alfabeto Farfallino
   {
     title: "Alfabeto Farfallino",
     texts: {
       it: `"Alfabeto Farfallino"
 
 L’italiano ha un registro (in via di estinzione) chiamato “Alfabeto Farfallino”, un linguaggio segreto per bambini.
-Ecco come funziona:
-
 Dopo ogni vocale di una parola si inserisce la sillaba “-ib-”.
 
 Esempi:
@@ -83,20 +53,13 @@ Esempi:
 “Casa” diventa “Cibasa”
 “Come stai?” diventa “Cibome stibai?”
 
-Perché è interessante:
 È un modo giocoso per i bambini di comunicare in privato.
 Mostra la flessibilità e l’adattabilità della lingua italiana.
-Anche se il suo uso sta diminuendo a causa della comunicazione digitale e di altri interessi dei bambini moderni, rimane un pezzo di patrimonio linguistico italiano.
-
-In Italia esistono molte varianti di questo linguaggio in codice, e questa è solo una di esse.
-
-Curiosità: Molte lingue del mondo utilizzano questa tecnica, con vocali o sillabe diverse.
+Anche se il suo uso sta diminuendo, rimane un pezzo di patrimonio linguistico italiano.
 `,
       en: `"Alfabeto Farfallino"
 
 Italian has a (dying) register of language called "Alfabeto Farfallino", a secret code language for children.
-Here's how it works:
-
 After every vowel in a word, the syllable "-ib-" is inserted.
 
 Examples:
@@ -104,20 +67,13 @@ Examples:
 "Casa" becomes "Cibasa"
 "Come stai?" becomes "Cibome stibai?"
 
-Why it's interesting:
 It's a playful way for kids to communicate privately.
 It shows the flexibility and adaptability of the Italian language.
-Although its use is declining due to digital communication and other interests of modern children, it remains a piece of Italian linguistic heritage.
-
-There are many variations of this code language in Italy, and this is just one of them.
-
-Fun fact: Many languages worldwide use this technique with different vowels or syllables.
+Although declining, it remains a piece of Italian linguistic heritage.
 `,
       fa: `"الفبای پروانه‌ای"
 
 زبان ایتالیایی یک زبان مخفی و بازیگوش برای کودکان دارد به نام "الفبای پروانه‌ای".
-طرز کارش این است:
-
 بعد از هر حرف صدادار در یک کلمه، سیلاب "-یب-" اضافه می‌شود.
 
 مثال‌ها:
@@ -125,20 +81,12 @@ Fun fact: Many languages worldwide use this technique with different vowels or s
 "Casa" می‌شود "Cibasa"
 "Come stai?" می‌شود "Cibome stibai?"
 
-چرا جالب است:
 این یک روش بازیگوشانه است برای بچه‌ها تا خصوصی با هم حرف بزنند.
-این نشان‌دهنده انعطاف‌پذیری و سازگاری زبان ایتالیایی است.
-اگرچه استفاده از آن به خاطر ارتباطات دیجیتال و سرگرمی‌های دیگر کودکان امروزی کاهش یافته، اما هنوز بخش مهمی از میراث زبانی ایتالیا است.
-
-در ایتالیا انواع مختلفی از این زبان رمز وجود دارد و این فقط یکی از آن‌هاست.
-
-نکته جالب: بسیاری از زبان‌های دنیا از این روش با سیلاب‌ها یا حروف صدادار متفاوت استفاده می‌کنند.
+نشان‌دهنده انعطاف‌پذیری و سازگاری زبان ایتالیایی است.
 `,
       de: `"Alfabeto Farfallino"
 
 Italienisch hat ein (vom Aussterben bedrohtes) Sprachregister namens "Alfabeto Farfallino", eine geheime Kindersprache.
-So funktioniert es:
-
 Nach jedem Vokal in einem Wort wird die Silbe "-ib-" eingefügt.
 
 Beispiele:
@@ -146,17 +94,13 @@ Beispiele:
 "Casa" wird zu "Cibasa"
 "Come stai?" wird zu "Cibome stibai?"
 
-Warum es interessant ist:
 Es ist eine spielerische Art, wie Kinder privat kommunizieren.
 Es zeigt die Flexibilität und Anpassungsfähigkeit der italienischen Sprache.
-Obwohl seine Verwendung aufgrund der digitalen Kommunikation und anderer Interessen moderner Kinder abnimmt, bleibt es ein Teil des italienischen sprachlichen Erbes.
-
-Es gibt viele Varianten dieser Codesprache in Italien, und dies ist nur eine davon.
-
-Fun Fact: Viele Sprachen weltweit verwenden diese Technik mit verschiedenen Vokalen oder Silben.
 `
     }
   },
+
+  // Story 2: Nonna Rosa
   {
     title: "Nonna Rosa in Toscana",
     texts: {
@@ -170,7 +114,7 @@ In a small village in Tuscany lived a grandmother named Rosa, famous for her hom
 `,
       fa: `🇮🇷 فارسی
 
-در یک روستای کوچک در توسکانی، مادربزرگی به نام روزا زندگی می‌کرد که به خاطر پاستای خانگی‌اش مشهور بود. اما روزا فقط یک آشپز نبود؛ او «معلم مخفی» زبان ایتالیایی برای گردشگران کنجکاو هم بود. او برایشان تعریف می‌کرد که در ایتالیا بیش از ۳۰ گویش مختلف وجود دارد و کلمه‌ی «چائو» در واقع از واژه‌ی ونیزی «s-ciào» می‌آید که به معنی «من خدمتگزار تو هستم» است. یک روز پسر آلمانی‌ای آمد که می‌خواست ایتالیایی یاد بگیرد تا بتواند ترانه‌های آندره‌آ بوچلی را بفهمد. روزا برایش توضیح داد که ایتالیایی معیار بیشتر از زبان توسکانی گرفته شده، به لطف نویسندگانی چون دانته، پترارکا و بوکاچو. در پایان تعطیلات، آن پسر نه تنها کمی ایتالیایی صحبت می‌کرد، بلکه فرق بین «گنوکی» و «گنوکا» را هم فهمیده بود — و هر بار که این ماجرا را تعریف می‌کرد با خنده همراه بود.
+در یک روستای کوچک در توسکانی، مادربزگ به نام روزا زندگی می‌کرد که به خاطر پاستای خانگی‌اش مشهور بود. اما روزا فقط یک آشپز نبود؛ او «معلم مخفی» زبان ایتالیایی برای گردشگران کنجکاو هم بود. او برایشان تعریف می‌کرد که در ایتالیا بیش از ۳۰ گویش مختلف وجود دارد و کلمه‌ی «چائو» در واقع از واژه‌ی ونیزی «s-ciào» می‌آید که به معنی «من خدمتگزار تو هستم» است. یک روز پسر آلمانی‌ای آمد که می‌خواست ایتالیایی یاد بگیرد تا بتواند ترانه‌های آندره‌آ بوچلی را بفهمد. روزا برایش توضیح داد که ایتالیایی معیار بیشتر از زبان توسکانی گرفته شده، به لطف نویسندگانی چون دانته، پترارکا و بوکاچو. در پایان تعطیلات، آن پسر نه تنها کمی ایتالیایی صحبت می‌کرد، بلکه فرق بین «گنوکی» و «گنوکا» را هم فهمیده بود — و هر بار که این ماجرا را تعریف می‌کرد با خنده همراه بود.
 `,
       de: `🇩🇪 Deutsch
 
@@ -178,44 +122,47 @@ In einem kleinen Dorf in der Toskana lebte eine Großmutter namens Rosa, berühm
 `
     }
   },
+
+  // Story 3: La musica dell’italiano
   {
     title: "La musica dell’italiano",
     texts: {
       it: `La musica dell’italiano
 
-Nel bar di una stazione, un ragazzo ascolta i suoni attorno a sé: «Buongiorno», «prego», «scusa». Sembra che ogni parola abbia una piccola melodia. La nonna gli dice: «Le vocali — a, e, i, o, u — tengono per mano le consonanti, così nessuna resta sola». Sul tram, un «permesso» apre spazio come una porta; al mercato, un «grazie» chiude le frasi come un bacio sull’aria. La sera, il ragazzo scrive la sua prima frase in italiano. È semplice, ma canta: «Oggi ho capito che le parole possono suonare».`,
+Nel bar di una stazione, un ragazzo ascolta i suoni attorno a sé: «Buongiorno», «prego», «scusa». Sembra che ogni parola abbia una piccola melodia. La nonna gli dice: «Le vocali — a, e, i, o, u — tengono per mano le consonanti, così nessuna resta sola». Sul tram, un «permesso» apre spazio come una porta; al mercato, un «grazie» chiude le frasi come un bacio sull’aria. La sera, il ragazzo scrive la sua prima frase in italiano. È semplice, ma canta: «Oggi ho capito che le parole possono suonare».
+`,
       en: `The Music of Italian
 
-At a station café, a boy listens to the voices around him: “buongiorno,” “prego,” “scusa.” It feels like every word carries a small melody. His grandmother says, “The vowels — a, e, i, o, u — hold the consonants by the hand so none of them is left alone.” On the tram, a soft “permesso” opens space like a door; at the market, a quiet “grazie” closes sentences like a kiss in the air. That night, the boy writes his first line in Italian. It’s simple, but it sings: “Today I learned that words can make music.”`,
+At a station café, a boy listens to the voices around him: “buongiorno,” “prego,” “scusa.” It feels like every word carries a small melody. His grandmother says, “The vowels — a, e, i, o, u — hold the consonants by the hand so none of them is left alone.” On the tram, a soft “permesso” opens space like a door; at the market, a quiet “grazie” closes sentences like a kiss in the air. That night, the boy writes his first line in Italian. It’s simple, but it sings: “Today I learned that words can make music.”
+`,
       fa: `موسیقیِ زبان ایتالیایی
 
-در کافه‌ی ایستگاه، پسری به صداها گوش می‌دهد: «بونجورنو»، «پرِگو»، «سکوزا». انگار هر کلمه ملودی کوچکی دارد. مادربزرگش می‌گوید: «واکه‌ها — a، e، i، o، u — دستِ همخوان‌ها را می‌گیرند تا هیچ‌کدام تنها نمانند.» در تراموا، یک «پرِمِسّو» آرام مثل در، فضا را باز می‌کند؛ در بازار، یک «گراتسیه» آهسته جمله‌ها را مثل بوسه‌ای در هوا می‌بندد. شب، پسر اولین جمله‌اش را به ایتالیایی می‌نویسد. ساده است، اما می‌خوانَد: «امروز فهمیدم کلمات می‌توانند موسیقی بسازند.»`,
+در کافه‌ی ایستگاه، پسری به صداها گوش می‌دهد: «بونجورنو»، «پرِگو»، «سکوزا». انگار هر کلمه ملودی کوچکی دارد. مادربزرگش می‌گوید: «واکه‌ها — a، e، i، o، u — دستِ همخوان‌ها را می‌گیرند تا هیچ‌کدام تنها نمانند.» در تراموا، یک «پرِمِسّو» آرام مثل در، فضا را باز می‌کند؛ در بازار، یک «گراتسیه» آهسته جمله‌ها را مثل بوسه‌ای در هوا می‌بندد. شب، پسر اولین جمله‌اش را به ایتالیایی می‌نویسد. ساده است، اما می‌خوانَد: «امروز فهمیدم کلمات می‌توانند موسیقی بسازند.»
+`,
       de: `Die Musik des Italienischen
 
-In einem Bahnhofscafé lauscht ein Junge den Stimmen: „buongiorno“, „prego“, „scusa“. Es wirkt, als trüge jedes Wort eine kleine Melodie. Seine Nonna sagt: „Die Vokale — a, e, i, o, u — halten die Konsonanten an der Hand, damit keiner allein bleibt.“ In der Straßenbahn öffnet ein sanftes „permesso“ Raum wie eine Tür; auf dem Markt schließt ein leises „grazie“ Sätze wie ein Kuss in die Luft. Am Abend schreibt der Junge seinen ersten Satz auf Italienisch. Er ist schlicht, doch er singt: „Heute habe ich gelernt, dass Wörter Musik machen können.“`
+In einem Bahnhofscafé lauscht ein Junge den Stimmen: „buongiorno“, „prego“, „scusa“. Es wirkt, als trüge jedes Wort eine kleine Melodie. Seine Nonna sagt: „Die Vokale — a, e, i, o, u — halten die Konsonanten an der Hand, damit keiner allein bleibt.“ Auf der Straßenbahn öffnet ein sanftes „permesso“ Raum wie eine Tür; auf dem Markt schließt ein leises „grazie“ Sätze wie ein Kuss in die Luft. Am Abend schreibt der Junge seinen ersten Satz auf Italienisch. Er ist schlicht, doch er singt: „Heute habe ich gelernt, dass Wörter Musik machen können.“
+`
     }
   }
 ];
 
-// === UI BUILD ===
+// UI BUILD
 window.onload = function() {
   buildStoryDropdown();
+  applyDirection();
   updateStory();
 };
 
 function buildStoryDropdown() {
   const select = document.getElementById('storySelect');
   select.innerHTML = "";
-
-  // Newest-first: iterate from last to first
   for (let i = stories.length - 1; i >= 0; i--) {
     const option = document.createElement('option');
-    option.value = String(i);                 // store index into array
-    option.textContent = stories[i].title;    // show title
+    option.value = String(i);
+    option.textContent = stories[i].title;
     select.appendChild(option);
   }
-
-  // Select the first option (newest)
   select.selectedIndex = 0;
 }
 
@@ -227,13 +174,8 @@ function setLanguage(lang) {
 
 function applyDirection() {
   const box = document.getElementById('story');
-  if (currentLang === 'fa') {
-    box.setAttribute('dir', 'rtl');
-    box.style.textAlign = 'right';
-  } else {
-    box.setAttribute('dir', 'ltr');
-    box.style.textAlign = 'left';
-  }
+  if (currentLang === 'fa') { box.setAttribute('dir','rtl'); box.style.textAlign='right'; }
+  else { box.setAttribute('dir','ltr'); box.style.textAlign='left'; }
 }
 
 function updateStory() {
@@ -244,9 +186,6 @@ function updateStory() {
   document.getElementById('title').textContent = storyObj.title;
   document.getElementById('story').textContent = text;
 }
-
-// Apply initial direction for default language
-applyDirection();
 </script>
 
 </body>
