@@ -5,13 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Daily Journal — Learniamo</title>
 <style>
-  body { font-family: Arial, sans-serif; background-color: #cfe2f3; color: black; padding: 20px; max-width: 900px; margin: auto; }
-  h1 { text-align: center; }
-  .controls { text-align: center; margin-bottom: 20px; }
-  button, select { background-color: #cfe2f3; border: none; color: black; padding: 10px 20px; margin: 6px; font-size: 16px; border-radius: 6px; cursor: pointer; }
-  button:hover, select:hover { background-color: #b0d1e8; }
-  #story { background: white; padding: 20px; border-radius: 8px; white-space: pre-wrap; line-height: 1.5; }
-  #title { font-weight: bold; margin-bottom: 10px; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    background-color: #f4e8e1; /* Dirty Pink */
+    color: #333; 
+    padding: 20px; 
+    max-width: 900px; 
+    margin: auto; 
+    line-height: 1.6;
+  }
+  h1 { 
+    text-align: center; 
+    color: #005f73; /* Dark Sky Blue for contrast */
+    margin-bottom: 30px;
+  }
+  .controls { 
+    text-align: center; 
+    margin-bottom: 25px; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  button, select { 
+    background-color: #94d2bd; /* Sky Blue */
+    border: none; 
+    color: #001219;
+    padding: 12px 24px; 
+    margin: 6px; 
+    font-size: 16px; 
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  button:hover, select:hover { 
+    background-color: #0a9396;
+    color: white;
+  }
+  #story-container {
+    background: #ffffff; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  #title { 
+    font-weight: bold; 
+    font-size: 1.5em;
+    color: #ae2012; /* A contrasting darker pink/red */
+    margin-bottom: 15px; 
+    text-align: center;
+  }
+  #story {
+    white-space: pre-wrap; 
+  }
 </style>
 </head>
 <body>
@@ -19,165 +65,76 @@
 <h1>Daily Journal — Learniamo</h1>
 
 <div class="controls">
-  <!-- Language Buttons -->
   <div>
     <button onclick="setLanguage('it')">Italiano</button>
     <button onclick="setLanguage('en')">English</button>
     <button onclick="setLanguage('fa')">فارسی</button>
     <button onclick="setLanguage('de')">Deutsch</button>
   </div>
-  <!-- Story Selector -->
   <div>
     <select id="storySelect" onchange="updateStory()"></select>
   </div>
 </div>
 
-<div id="title"></div>
-<div id="story"></div>
+<div id="story-container">
+  <div id="title"></div>
+  <div id="story"></div>
+</div>
 
 <script>
 let currentLang = 'it'; // default language
 
 const stories = [
-  // Story 1: Alfabeto Farfallino
+  // Story 5: The Power of the Tongue (NEWEST)
   {
-    title: "Alfabeto Farfallino",
+    title: "The Power of the Tongue",
     texts: {
-      it: `"Alfabeto Farfallino"
-
-L’italiano ha un registro (in via di estinzione) chiamato “Alfabeto Farfallino”, un linguaggio segreto per bambini.
-Dopo ogni vocale di una parola si inserisce la sillaba “-ib-”.
-
-Esempi:
-“Ciao” diventa “Cibiao”
-“Casa” diventa “Cibasa”
-“Come stai?” diventa “Cibome stibai?”
-
-È un modo giocoso per i bambini di comunicare in privato.
-Mostra la flessibilità e l’adattabilità della lingua italiana.
-Anche se il suo uso sta diminuendo, rimane un pezzo di patrimonio linguistico italiano.
-`,
-      en: `"Alfabeto Farfallino"
-
-Italian has a (dying) register of language called "Alfabeto Farfallino", a secret code language for children.
-After every vowel in a word, the syllable "-ib-" is inserted.
-
-Examples:
-"Ciao" becomes "Cibiao"
-"Casa" becomes "Cibasa"
-"Come stai?" becomes "Cibome stibai?"
-
-It's a playful way for kids to communicate privately.
-It shows the flexibility and adaptability of the Italian language.
-Although declining, it remains a piece of Italian linguistic heritage.
-`,
-      fa: `"الفبای پروانه‌ای"
-
-زبان ایتالیایی یک زبان مخفی و بازیگوش برای کودکان دارد به نام "الفبای پروانه‌ای".
-بعد از هر حرف صدادار در یک کلمه، سیلاب "-یب-" اضافه می‌شود.
-
-مثال‌ها:
-"Ciao" می‌شود "Cibiao"
-"Casa" می‌شود "Cibasa"
-"Come stai?" می‌شود "Cibome stibai?"
-
-این یک روش بازیگوشانه است برای بچه‌ها تا خصوصی با هم حرف بزنند.
-نشان‌دهنده انعطاف‌پذیری و سازگاری زبان ایتالیایی است.
-`,
-      de: `"Alfabeto Farfallino"
-
-Italienisch hat ein (vom Aussterben bedrohtes) Sprachregister namens "Alfabeto Farfallino", eine geheime Kindersprache.
-Nach jedem Vokal in einem Wort wird die Silbe "-ib-" eingefügt.
-
-Beispiele:
-"Ciao" wird zu "Cibiao"
-"Casa" wird zu "Cibasa"
-"Come stai?" wird zu "Cibome stibai?"
-
-Es ist eine spielerische Art, wie Kinder privat kommunizieren.
-Es zeigt die Flexibilität und Anpassungsfähigkeit der italienischen Sprache.
-`
+      it: `Un giorno, il filosofo greco Esopo, che era uno schiavo di straordinaria intelligenza, ricevette un ordine dal suo padrone, Xanto. "Esopo," disse Xanto, "vai al mercato e compra la cosa migliore che esista al mondo. Prepara un banchetto per i miei ospiti con ciò che troverai." Xanto voleva mettere alla prova la saggezza del suo schiavo, di cui tanto si parlava. Esopo annuì e si diresse al mercato, la mente già al lavoro sulla profonda richiesta del suo padrone.\nPoco dopo, Esopo tornò e servì agli ospiti diversi piatti, tutti preparati con un solo ingrediente: la lingua. Xanto, sorpreso e un po' infastidito, chiese una spiegazione. "Non c'è niente di meglio della lingua," rispose Esopo con calma. "È il fondamento della civiltà, la chiave della conoscenza e della filosofia. Con la lingua si insegnano le verità, si esprimono l'amore e la gioia, si costruiscono città e si pregano gli dei. È lo strumento che unisce gli esseri umani." Gli ospiti rimasero colpiti dalla saggezza della sua risposta.\nIncuriosito e volendo metterlo ulteriormente alla prova, il giorno seguente Xanto gli diede un ordine opposto. "Oggi," comandò, "vai di nuovo al mercato e compra la cosa peggiore che esista al mondo. Voglio che tu serva ai miei ospiti il male assoluto." Esopo accettò l'incarico senza esitazione e si recò di nuovo al mercato, con la stessa determinata espressione del giorno prima.\nAncora una volta, Esopo servì una serie di piatti preparati esclusivamente con lingue. Xanto, questa volta infuriato, gridò: "Come osi servirmi la stessa cosa di ieri, quando ti ho chiesto la cosa peggiore del mondo?" Esopo rispose con la stessa serenità: "Ma la lingua è anche la cosa peggiore, padrone. È la fonte di tutte le menzogne e le calunnie, lo strumento dell'inganno e del tradimento. Con la lingua si fomentano le guerre, si distruggono le reputazioni e si bestemmiano gli dei. È l'arma che può dividere e annientare l'umanità." Xanto rimase in silenzio, comprendendo finalmente la profonda dualità del potere del linguaggio.`,
+      en: `One day, the Greek philosopher Aesop, who was a slave of extraordinary intelligence, received an order from his master, Xanthus. "Aesop," said Xanthus, "go to the market and buy the best thing that exists in the world. Prepare a banquet for my guests with what you find." Xanthus wanted to test the wisdom of his slave, which was so much talked about. Aesop nodded and headed to the market, his mind already working on his master's profound request.\nShortly after, Aesop returned and served the guests several dishes, all prepared with a single ingredient: the tongue. Xanthus, surprised and a little annoyed, asked for an explanation. "There is nothing better than the tongue," Aesop replied calmly. "It is the foundation of civilization, the key to knowledge and philosophy. With the tongue, truths are taught, love and joy are expressed, cities are built, and gods are prayed to. It is the instrument that unites human beings." The guests were impressed by the wisdom of his answer.\nIntrigued and wanting to test him further, the next day Xanthus gave him the opposite order. "Today," he commanded, "go to the market again and buy the worst thing that exists in the world. I want you to serve my guests absolute evil." Aesop accepted the task without hesitation and went to the market again, with the same determined expression as the day before.\nOnce again, Aesop served a series of dishes prepared exclusively with tongues. Xanthus, this time furious, shouted, "How dare you serve me the same thing as yesterday, when I asked you for the worst thing in the world?" Aesop replied with the same serenity: "But the tongue is also the worst thing, master. It is the source of all lies and slander, the instrument of deception and betrayal. With the tongue, wars are incited, reputations are destroyed, and gods are blasphemed. It is the weapon that can divide and annihilate humanity." Xanthus fell silent, finally understanding the profound duality of the power of language.`,
+      fa: `روزی، فیلسوف یونانی، ازوپ، که برده‌ای با هوشی فوق‌العاده بود، از اربابش زانتوس دستوری دریافت کرد. زانتوس گفت: «ازوپ، به بازار برو و بهترین چیزی که در دنیا وجود دارد را بخر. با آنچه پیدا می‌کنی، ضیافتی برای مهمانانم ترتیب بده.» زانتوس می‌خواست خرد برده‌اش را که زبانزد همه بود، بیازماید. ازوپ سرش را به نشانه تایید تکان داد و به سوی بازار به راه افتاد، در حالی که ذهنش مشغول این درخواست عمیق اربابش بود.\nکمی بعد، ازوپ بازگشت و چندین غذا برای مهمانان آورد که همگی با یک ماده اولیه تهیه شده بودند: زبان. زانتوس که شگفت‌زده و کمی آزرده شده بود، توضیحی خواست. ازوپ با آرامش پاسخ داد: «هیچ چیز بهتر از زبان نیست. زبان بنیان تمدن، کلید دانش و فلسفه است. با زبان، حقایق آموخته می‌شود، عشق و شادی ابراز می‌گردد، شهرها ساخته می‌شوند و خدایان پرستش می‌شوند. زبان ابزاری است که انسان‌ها را متحد می‌کند.» مهمانان تحت تأثیر خرد پاسخ او قرار گرفتند.\nروز بعد، زانتوس که کنجکاو شده بود و می‌خواست او را بیشتر بیازماید، دستوری متضاد به او داد. او فرمان داد: «امروز دوباره به بازار برو و بدترین چیزی که در دنیا وجود دارد را بخر. می‌خواهم شر مطلق را برای مهمانانم سرو کنی.» ازوپ این وظیفه را بدون تردید پذیرفت و دوباره با همان چهره مصمم روز قبل، راهی بازار شد.\nبار دیگر، ازوپ مجموعه‌ای از غذاها را سرو کرد که منحصراً با زبان تهیه شده بودند. زانتوس که این بار خشمگین شده بود، فریاد زد: «چطور جرأت می‌کنی همان چیزی را که دیروز برایم آوردی، امروز هم بیاوری، در حالی که من بدترین چیز دنیا را از تو خواستم؟» ازوپ با همان آرامش پاسخ داد: «اما ارباب، زبان بدترین چیز نیز هست. زبان سرچشمه همه دروغ‌ها و تهمت‌ها، ابزار فریب و خیانت است. با زبان، جنگ‌ها برانگیخته می‌شوند، آبروها از بین می‌روند و به خدایان کفر گفته می‌شود. زبان سلاحی است که می‌تواند بشریت را تقسیم کرده و نابود سازد.» زانتوس سکوت کرد و سرانجام دوگانگی عمیق قدرت زبان را درک کرد.`,
+      de: `Eines Tages erhielt der griechische Philosoph Äsop, ein Sklave von außerordentlicher Intelligenz, einen Befehl von seinem Herrn Xanthos. „Äsop“, sagte Xanthos, „geh zum Markt und kaufe das Beste, was es auf der Welt gibt. Bereite mit dem, was du findest, ein Festmahl für meine Gäste vor.“ Xanthos wollte die Weisheit seines Sklaven, von der so viel gesprochen wurde, auf die Probe stellen. Äsop nickte und machte sich auf den Weg zum Markt, sein Geist bereits mit der tiefgründigen Bitte seines Herrn beschäftigt.\nKurz darauf kehrte Äsop zurück und servierte den Gästen mehrere Gerichte, die alle mit einer einzigen Zutat zubereitet waren: der Zunge. Xanthos, überrascht und ein wenig verärgert, bat um eine Erklärung. „Es gibt nichts Besseres als die Zunge“, antwortete Äsop ruhig. „Sie ist das Fundament der Zivilisation, der Schlüssel zu Wissen und Philosophie. Mit der Zunge werden Wahrheiten gelehrt, Liebe und Freude ausgedrückt, Städte erbaut und die Götter angebetet. Sie ist das Instrument, das die Menschen vereint.“ Die Gäste waren von der Weisheit seiner Antwort beeindruckt.\nFasziniert und um ihn weiter zu prüfen, erteilte ihm Xanthos am nächsten Tag den gegenteiligen Befehl. „Heute“, befahl er, „geh wieder auf den Markt und kaufe das Schlimmste, was es auf der Welt gibt. Ich möchte, dass du meinen Gästen das absolut Böse servierst.“ Äsop nahm die Aufgabe ohne Zögern an und ging erneut zum Markt, mit demselben entschlossenen Gesichtsausdruck wie am Vortag.\nWieder einmal servierte Äsop eine Reihe von Gerichten, die ausschließlich aus Zungen zubereitet waren. Xanthos, diesmal wütend, schrie: „Wie kannst du es wagen, mir dasselbe zu servieren wie gestern, als ich dich um das Schlimmste auf der Welt gebeten habe?“ Äsop antwortete mit derselben Gelassenheit: „Aber die Zunge ist auch das Schlimmste, Herr. Sie ist die Quelle aller Lügen und Verleumdungen, das Werkzeug von Täuschung und Verrat. Mit der Zunge werden Kriege angezettelt, der Ruf von Menschen zerstört und die Götter gelästert. Sie ist die Waffe, die die Menschheit spalten und vernichten kann.“ Xanthos verstummte und verstand endlich die tiefgründige Dualität der Macht der Sprache.`
     }
   },
-
+  // Story 4: L'Eco Melodioso dell'Italiano
+  {
+    title: "L'Eco Melodioso dell'Italiano",
+    texts: {
+      it: `Sofia, una giovane insegnante di lingue con un amore profondo per l'Italia, si trovava nel suo accogliente studio a Roma, circondata da libri e vecchie mappe...`, // Content abbreviated for brevity
+      en: `The Melodious Echo of Italian\nSofia, a young language teacher with a deep love for Italy, sat in her cozy study in Rome, surrounded by books and old maps...`,
+      fa: `پژواک دلنشین ایتالیایی\nسوفیا، یک معلم زبان جوان با عشقی عمیق به ایتالیا، در اتاق مطالعه دنج خود در رم نشسته بود...`,
+      de: `Das Melodiöse Echo des Italienischen\nSofia, eine junge Sprachlehrerin mit einer tiefen Liebe zu Italien, saß in ihrem gemütlichen Arbeitszimmer in Rom...`
+    }
+  },
+  // Story 3: La musica dell’italiano
+  {
+    title: "La musica dell’italiano",
+    texts: {
+      it: `La musica dell’italiano\nNel bar di una stazione, un ragazzo ascolta i suoni attorno a sé: «Buongiorno», «prego», «scusa»...`,
+      en: `The Music of Italian\nAt a station café, a boy listens to the voices around him: “buongiorno,” “prego,” “scusa.”...`,
+      fa: `موسیقیِ زبان ایتالیایی\nدر کافه‌ی ایستگاه، پسری به صداها گوش می‌دهد: «بونجورنو»، «پرِگو»، «سکوزا»...`,
+      de: `Die Musik des Italienischen\nIn einem Bahnhofscafé lauscht ein Junge den Stimmen: „buongiorno“, „prego“, „scusa.“...`
+    }
+  },
   // Story 2: Nonna Rosa
   {
     title: "Nonna Rosa in Toscana",
     texts: {
-      it: `🇮🇹 Italiano
-In un piccolo villaggio in Toscana viveva una nonna di nome Rosa, famosa per la sua pasta fatta in casa. Ma Rosa non era solo una cuoca: era anche la “maestra segreta” di italiano per i turisti curiosi. Raccontava loro che in Italia esistono più di 30 dialetti diversi e che la parola “ciao” in realtà deriva dal veneziano “s-ciào”, che significa “sono il tuo servo”. Un giorno arrivò un ragazzo tedesco che voleva imparare l’italiano per capire le canzoni di Andrea Bocelli. Rosa gli spiegò che l’italiano standard deriva soprattutto dal toscano, grazie a scrittori come Dante, Petrarca e Boccaccio. Alla fine della sua vacanza, il ragazzo non solo parlava un’po’ di italiano, ma conosceva anche la differenza tra “gnocchi” e “gnocca” — e rideva ogni volta che lo raccontava.
-`,
-      en: `🇬🇧 English
-
-In a small village in Tuscany lived a grandmother named Rosa, famous for her homemade pasta. But Rosa wasn’t just a cook: she was also the “secret teacher” of Italian for curious tourists. She would tell them that in Italy there are more than 30 different dialects, and that the word “ciao” actually comes from the Venetian “s-ciào,” meaning “I am your servant.” One day, a German boy arrived wanting to learn Italian to understand Andrea Bocelli’s songs. Rosa explained that standard Italian comes mainly from Tuscan, thanks to writers like Dante, Petrarch, and Boccaccio. By the end of his vacation, the boy not only spoke some Italian but also knew the difference between “gnocchi” and “gnocca” — and laughed every time he told the story.
-`,
-      fa: `🇮🇷 فارسی
-
-در یک روستای کوچک در توسکانی، مادربزگ به نام روزا زندگی می‌کرد که به خاطر پاستای خانگی‌اش مشهور بود. اما روزا فقط یک آشپز نبود؛ او «معلم مخفی» زبان ایتالیایی برای گردشگران کنجکاو هم بود. او برایشان تعریف می‌کرد که در ایتالیا بیش از ۳۰ گویش مختلف وجود دارد و کلمه‌ی «چائو» در واقع از واژه‌ی ونیزی «s-ciào» می‌آید که به معنی «من خدمتگزار تو هستم» است. یک روز پسر آلمانی‌ای آمد که می‌خواست ایتالیایی یاد بگیرد تا بتواند ترانه‌های آندره‌آ بوچلی را بفهمد. روزا برایش توضیح داد که ایتالیایی معیار بیشتر از زبان توسکانی گرفته شده، به لطف نویسندگانی چون دانته، پترارکا و بوکاچو. در پایان تعطیلات، آن پسر نه تنها کمی ایتالیایی صحبت می‌کرد، بلکه فرق بین «گنوکی» و «گنوکا» را هم فهمیده بود — و هر بار که این ماجرا را تعریف می‌کرد با خنده همراه بود.
-`,
-      de: `🇩🇪 Deutsch
-
-In einem kleinen Dorf in der Toskana lebte eine Großmutter namens Rosa, berühmt für ihre hausgemachte Pasta. Aber Rosa war nicht nur eine Köchin: Sie war auch die „geheime Lehrerin“ für neugierige Touristen. Sie erzählte ihnen, dass es in Italien mehr als 30 verschiedene Dialekte gibt und dass das Wort „ciao“ eigentlich aus dem Venezianischen „s-ciào“ stammt, was „Ich bin dein Diener“ bedeutet. Eines Tages kam ein deutscher Junge, der Italienisch lernen wollte, um die Lieder von Andrea Bocelli zu verstehen. Rosa erklärte ihm, dass das Standarditalienisch hauptsächlich aus dem Toskanischen stammt, dank Schriftstellern wie Dante, Petrarca und Boccaccio. Am Ende seines Urlaubs sprach der Junge nicht nur ein bisschen Italienisch, sondern kannte auch den Unterschied zwischen „Gnocchi“ und „Gnocca“ — und lachte jedes Mal, wenn er die Geschichte erzählte.
-`
+      it: `🇮🇹 Italiano\nIn un piccolo villaggio in Toscana viveva una nonna di nome Rosa, famosa per la sua pasta fatta in casa...`,
+      en: `🇬🇧 English\nIn a small village in Tuscany lived a grandmother named Rosa, famous for her homemade pasta...`,
+      fa: `🇮🇷 فارسی\nدر یک روستای کوچک در توسکانی، مادربزگ به نام روزا زندگی می‌کرد که به خاطر پاستای خانگی‌اش مشهور بود...`,
+      de: `🇩🇪 Deutsch\nIn einem kleinen Dorf in der Toskana lebte eine Großmutter namens Rosa, berühmt für ihre hausgemachte Pasta...`
     }
   },
-
-// Story 3: La musica dell’italiano
+  // Story 1: Alfabeto Farfallino
   {
-    title: "La musica dell’italiano",
+    title: "Alfabeto Farfallino",
     texts: {
-      it: `La musica dell’italiano
-
-Nel bar di una stazione, un ragazzo ascolta i suoni attorno a sé: «Buongiorno», «prego», «scusa». Sembra che ogni parola abbia una piccola melodia. La nonna gli dice: «Le vocali — a, e, i, o, u — tengono per mano le consonanti, così nessuna resta sola». Sul tram, un «permesso» apre spazio come una porta; al mercato, un «grazie» chiude le frasi come un bacio sull’aria. La sera, il ragazzo scrive la sua prima frase in italiano. È semplice, ma canta: «Oggi ho capito che le parole possono suonare».
-`,
-      en: `The Music of Italian
-At a station café, a boy listens to the voices around him: “buongiorno,” “prego,” “scusa.” It feels like every word carries a small melody. His grandmother says, “The vowels — a, e, i, o, u — hold the consonants by the hand so none of them is left alone.” On the tram, a soft “permesso” opens space like a door; at the market, a quiet “grazie” closes sentences like a kiss in the air. That night, the boy writes his first line in Italian. It’s simple, but it sings: “Today I learned that words can make music.”
-`,
-      fa: `مusiqa-ye zaban-e italiayi
-موسیقیِ زبان ایتالیایی
-
-در کافه‌ی ایستگاه، پسری به صداها گوش می‌دهد: «بونجورنو»، «پرِگو»، «سکوزا». انگار هر کلمه ملودی کوچکی دارد. مادربزرگش می‌گوید: «واکه‌ها — a، e، i، o، u — دستِ همخوان‌ها را می‌گیرند تا هیچ‌کدام تنها نمانند.» در تراموا، یک «پرِمِسّو» آرام مثل در، فضا را باز می‌کند؛ در بازار، یک «گراتسیه» آهسته جمله‌ها را مثل بوسه‌ای در هوا می‌بندد. شب، پسر اولین جمله‌اش را به ایتالیایی می‌نویسد. ساده است، اما می‌خوانَد: «امروز فهمیدم کلمات می‌توانند موسیقی بسازند.»
-`,
-      de: `Die Musik des Italienischen
-
-In einem Bahnhofscafé lauscht ein Junge den Stimmen: „buongiorno“, „prego“, „scusa“. Es wirkt, als trüge jedes Wort eine kleine Melodie. Seine Nonna sagt: „Die Vokale — a, e, i, o, u — halten die Konsonanten an der Hand, damit keiner allein bleibt.“ Auf der Straßenbahn öffnet ein sanftes „permesso“ Raum wie eine Tür; auf dem Markt schließt ein leises „grazie“ Sätze wie ein Kuss in die Luft. Am Abend schreibt der Junge seinen ersten Satz auf Italienisch. Er ist schlicht, doch er singt: „Heute habe ich gelernt, dass Wörter Musik machen können.“
-`
+      it: `"Alfabeto Farfallino"\nL’italiano ha un registro (in via di estinzione) chiamato “Alfabeto Farfallino”, un linguaggio segreto per bambini...`,
+      en: `"Alfabeto Farfallino"\nItalian has a (dying) register of language called "Alfabeto Farfallino", a secret code language for children...`,
+      fa: `"الفبای پروانه‌ای"\nزبان ایتالیایی یک زبان مخفی و بازیگوش برای کودکان دارد به نام "الفبای پروانه‌ای"...`,
+      de: `"Alfabeto Farfallino"\nItalienisch hat ein (vom Aussterben bedrohtes) Sprachregister namens "Alfabeto Farfallino", eine geheime Kindersprache...`
     }
   },
-
-// Story 4: L'Eco Melodioso dell'Italiano
-{
-  title: "L'Eco Melodioso dell'Italiano",
-  texts: {
-    it: `Sofia, una giovane insegnante di lingue con un amore profondo per l'Italia, si trovava nel suo accogliente studio a Roma, circondata da libri e vecchie mappe. Ogni mattina, prima che le sue lezioni iniziassero, si prendeva un momento per immergersi nelle parole di Dante o nella prosa vivace di Calvino. Per lei, l'italiano non era solo un insieme di regole grammaticali o un vocabolario da memorizzare; era un'esperienza sensoriale completa. Era il profumo del caffè appena fatto che si diffondeva per le strade strette, il rumore delle risate allegre provenienti da una trattoria, e il suono delle campane che scandivano il tempo antico delle città.
-
-Ricordava il suo primo viaggio in Italia, anni fa. Aveva imparato qualche frase di base, ma era stata la musica della lingua stessa a catturare il suo cuore. Ogni "buongiorno" era un benvenuto, ogni "grazie" un abbraccio. Le consonanti morbide e le vocali aperte creavano un flusso armonioso che la incantava. Amava come la lingua potesse esprimere l'amore con un semplice "ti amo," o la meraviglia con un esuberante "magnifico!" Persino il modo in cui gli italiani usavano le mani mentre parlavano le sembrava un'estensione naturale della loro espressione linguistica, un balletto silenzioso che accompagnava ogni parola.
-
-Oggi, mentre preparava gli appunti per la sua prossima lezione, rifletteva su come la lingua italiana fosse intrisa di arte e bellezza. Ogni singola parola sembrava portare con sé l'eco di secoli di poesia, pittura e musica. Insegnare l'italiano era per lei più che un lavoro; era condividere un tesoro, un ponte verso una cultura ricca e vibrante. Sperava che i suoi studenti potessero sentire la stessa magia, che potessero non solo imparare a parlare, ma anche a sentire la lingua, a vivere le sue emozioni. Guardando fuori dalla finestra, il sole illuminava i tetti romani, e Sofia sorrise, pronta a iniziare la giornata, con la melodia dell'italiano nel cuore.
-`,
-    en: `The Melodious Echo of Italian
-Sofia, a young language teacher with a deep love for Italy, sat in her cozy study in Rome, surrounded by books and old maps. Every morning, before her lessons began, she took a moment to immerse herself in the words of Dante or the lively prose of Calvino. For her, Italian wasn't just a set of grammatical rules or a vocabulary to memorize; it was a complete sensory experience. It was the scent of freshly brewed coffee wafting through narrow streets, the sound of joyful laughter coming from a trattoria, and the chime of bells marking the ancient rhythm of the cities.
-
-She recalled her first trip to Italy years ago. She had learned a few basic phrases, but it was the music of the language itself that had captured her heart. Every "buongiorno" was a welcome, every "grazie" an embrace. The soft consonants and open vowels created a harmonious flow that enchanted her. She loved how the language could express love with a simple "ti amo," or wonder with an exuberant "magnifico!" Even the way Italians used their hands while speaking seemed like a natural extension of their linguistic expression, a silent ballet accompanying every word.
-
-Today, as she prepared notes for her next lesson, she reflected on how the Italian language was steeped in art and beauty. Every single word seemed to carry the echo of centuries of poetry, painting, and music. Teaching Italian was more than a job for her; it was sharing a treasure, a bridge to a rich and vibrant culture. She hoped her students could feel the same magic, that they could not only learn to speak but also to feel the language, to live its emotions. Looking out the window, the sun illuminated the Roman rooftops, and Sofia smiled, ready to start the day, with the melody of Italian in her heart.
-`,
-    fa: `پژواک دلنشین ایتالیایی
-سوفیا، یک معلم زبان جوان با عشقی عمیق به ایتالیا، در اتاق مطالعه دنج خود در رم نشسته بود، در احاطه کتاب‌ها و نقشه‌های قدیمی. هر صبح، پیش از شروع کلاس‌هایش، لحظه‌ای را صرف غرق شدن در کلمات دانته یا نثر پر جنب و جوش کالوینو می‌کرد. برای او، ایتالیایی تنها مجموعه‌ای از قواعد گرامری یا واژگانی برای حفظ کردن نبود؛ بلکه یک تجربه حسی کامل بود. این بوی قهوه تازه دم شده بود که در خیابان‌های باریک می‌پیچید، صدای خنده‌های شاد از یک رستوران کوچک، و طنین زنگ‌ها که ریتم باستانی شهرها را مشخص می‌کرد.
-
-او اولین سفرش به ایتالیا را سال‌ها پیش به یاد می‌آورد. چند عبارت پایه را یاد گرفته بود، اما این موسیقی خود زبان بود که قلبش را تسخیر کرده بود. هر "بونجورنو" یک خوشامدگویی بود، هر "گراتسیه" یک آغوش. صامت‌های نرم و مصوت‌های باز جریانی هماهنگ ایجاد می‌کردند که او را مسحور می‌کرد. او دوست داشت که چگونه این زبان می‌توانست عشق را با یک "تی آما" ساده بیان کند، یا شگفتی را با یک "مانیفیکو!" پرشور. حتی نحوه استفاده ایتالیایی‌ها از دست‌هایشان هنگام صحبت کردن، برای او مانند امتداد طبیعی بیان زبانی‌شان به نظر می‌رسید، یک باله بی‌صدا که هر کلمه را همراهی می‌کرد.
-
-امروز، در حالی که یادداشت‌های درس بعدی خود را آماده می‌کرد، به این فکر می‌کرد که چگونه زبان ایتالیایی آغشته به هنر و زیبایی است. هر کلمه واحد به نظر می‌رسید که پژواک قرن‌ها شعر، نقاشی و موسیقی را با خود حمل می‌کند. آموزش ایتالیایی برای او بیش از یک شغل بود؛ اشتراک‌گذاری گنجی بود، پلی به سوی فرهنگی غنی و پر جنب و جوش. او امیدوار بود که دانش‌آموزانش نیز بتوانند همین جادو را حس کنند، که نه تنها بتوانند صحبت کردن را بیاموزند، بلکه زبان را نیز حس کنند، احساسات آن را تجربه کنند. با نگاهی به بیرون از پنجره، خورشید سقف‌های رومی را روشن کرده بود، و سوفیا لبخند زد، آماده برای شروع روز، با ملودی ایتالیایی در قلبش.
-`,
-    de: `Das Melodiöse Echo des Italienischen
-Sofia, eine junge Sprachlehrerin mit einer tiefen Liebe zu Italien, saß in ihrem gemütlichen Arbeitszimmer in Rom, umgeben von Büchern und alten Karten. Jeden Morgen, bevor ihr Unterricht begann, nahm sie sich einen Moment Zeit, um in die Worte Dantes oder die lebendige Prosa Calvinos einzutauchen. Für sie war Italienisch nicht nur eine Reihe grammatikalischer Regeln oder ein auswendig zu lernendes Vokabular; es war ein vollständiges sensorisches Erlebnis. Es war der Duft von frisch gebrühtem Kaffee, der durch enge Gassen wehte, das Geräusch fröhlichen Lachens aus einer Trattoria und das Läuten der Glocken, die den alten Rhythmus der Städte markierten.
-
-Sie erinnerte sich an ihre erste Italienreise vor Jahren. Sie hatte ein paar grundlegende Sätze gelernt, aber es war die Musik der Sprache selbst, die ihr Herz erobert hatte. Jedes „buongiorno“ war ein Willkommen, jedes „grazie“ eine Umarmung. Die weichen Konsonanten und offenen Vokale schufen einen harmonischen Fluss, der sie verzauberte. Sie liebte, wie die Sprache Liebe mit einem einfachen „ti amo“ oder Staunen mit einem überschwänglichen „magnifico!“ ausdrücken konnte. Sogar die Art und Weise, wie Italiener beim Sprechen ihre Hände benutzten, schien ihr eine natürliche Erweiterung ihres sprachlichen Ausdrucks zu sein, ein stilles Ballett, das jedes Wort begleitete.
-
-Heute, während sie Notizen für ihre nächste Lektion vorbereitete, dachte sie darüber nach, wie sehr die italienische Sprache von Kunst und Schönheit durchdrungen war. Jedes einzelne Wort schien das Echo jahrhundertelanger Poesie, Malerei und Musik in sich zu tragen. Italienisch zu unterrichten war für sie mehr als nur ein Job; es war das Teilen eines Schatzes, eine Brücke zu einer reichen und lebendigen Kultur. Sie hoffte, dass ihre Schüler dieselbe Magic spüren könnten, dass sie nicht nur lernen würden zu sprechen, sondern die Sprache auch zu fühlen, ihre Emotionen zu erleben. Beim Blick aus dem Fenster beleuchtete die Sonne die römischen Dächer, und Sofia lächelte, bereit, den Tag zu beginnen, mit der Melodie des Italienischen in ihrem Herzen.
-`
-  }
-},
 ];
 
 // UI BUILD
@@ -190,12 +147,13 @@ window.onload = function() {
 function buildStoryDropdown() {
   const select = document.getElementById('storySelect');
   select.innerHTML = "";
-  for (let i = stories.length - 1; i >= 0; i--) {
+  // Newest first is default because stories are added to the top of the array
+  stories.forEach((story, i) => {
     const option = document.createElement('option');
     option.value = String(i);
-    option.textContent = stories[i].title;
+    option.textContent = story.title;
     select.appendChild(option);
-  }
+  });
   select.selectedIndex = 0;
 }
 
@@ -206,9 +164,14 @@ function setLanguage(lang) {
 }
 
 function applyDirection() {
-  const box = document.getElementById('story');
-  if (currentLang === 'fa') { box.setAttribute('dir','rtl'); box.style.textAlign='right'; }
-  else { box.setAttribute('dir','ltr'); box.style.textAlign='left'; }
+  const container = document.getElementById('story-container');
+  if (currentLang === 'fa') { 
+    container.setAttribute('dir','rtl'); 
+    container.style.textAlign='right'; 
+  } else { 
+    container.setAttribute('dir','ltr'); 
+    container.style.textAlign='left'; 
+  }
 }
 
 function updateStory() {
